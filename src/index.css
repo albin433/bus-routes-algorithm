@@ -16,7 +16,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 50px;
+  /* margin-top: 50px; */
 }
 
 .bus-route-stop {
@@ -34,6 +34,21 @@ code {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+.fake-bus-route-stop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  /* background-color: #fff; */
+  /* color: #000; */
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 0px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+}
+
 .bus-route-line {
   height: 8px;
   background-color: #000;
@@ -43,6 +58,12 @@ code {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   animation-direction: alternate;
+}
+
+.bus-route-icon-space {
+  height: 8px;
+  flex-grow: 1;
+  margin: 0px;
 }
 
 /* @keyframes bus-route-line-animation {
