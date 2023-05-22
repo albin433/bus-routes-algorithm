@@ -4,6 +4,8 @@ import BusRoute from './bus-route';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Tbody, Tr, Th, Td, TableContainer, Box } from "@chakra-ui/react";
 import BusIcon from './bus-icon';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import { FaFlagCheckered } from 'react-icons/fa';
 
 function App() {
   const [busCount, setBusCount] = useState(null);
@@ -159,13 +161,11 @@ function App() {
         {
           visitedStops.length > 0 &&
           <div className="bus-route mt-5">
-            {/* <i className="fa fa-map-marker" aria-hidden="true"></i> */}
-
+            <FaMapMarkerAlt size={52} color="red" className='p-0' />
             {visitedStops.map((stop, index) => (
               <BusIcon {...{ visitedStops, stop, index }} />
             ))}
-            {/* <i className="fa fa-map-marker"></i> */}
-
+            <FaFlagCheckered size={52} color="black" className='p-0' />
           </div>
         }
         {

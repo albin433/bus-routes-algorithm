@@ -20,10 +20,10 @@ function BusIcon({ visitedStops, stop, index }) {
 
     return (
         <React.Fragment key={index}>
-            <div className="fake-bus-route-stop"></div>
+            {index !== 0 && index !== visitedStops.length - 1 && <div className="fake-bus-route-stop"></div>}
             {index !== visitedStops.length - 1 && (
                 <div className="svgja">
-                    <div className="col-6">
+                    <div className="ms-3 col-6">
                         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 200" width="100%" height="100%" xmlSpace="preserve" fill={busColor} >
                             <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                             <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
