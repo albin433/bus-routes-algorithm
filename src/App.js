@@ -4,6 +4,7 @@ import BusRoute from './bus-route';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Tbody, Tr, Th, Td, TableContainer, Box } from "@chakra-ui/react";
 import BusIcon from './bus-icon';
+import TableBusIcon from './table-bus-icon';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FaFlagCheckered } from 'react-icons/fa';
 
@@ -15,7 +16,8 @@ function App() {
   const [error, setError] = useState(true);
   const [visitedStops, setVisitedStops] = useState([]);
   const [bus, setBus] = useState('');
-  const [busColor, setBusColor] = useState('');
+  const [addedBuses, setAddedBuses] = useState(0);
+  const [busList, setBusList] = useState([]);
   const [busRoutesMatrix, setBusRoutesMatrix] = useState([]);
   const divRef = useRef(null);
 
@@ -79,38 +81,43 @@ function App() {
     const newBusRoutesMatric = [...busRoutesMatrix];
     newBusRoutesMatric.push(busLine);
     setBusRoutesMatrix(newBusRoutesMatric);
+    const newBus = {
+      busName: `Bus ${busList.length + 1}`,
+      path: busLine,
+      color: ['red', 'blue', 'violet', 'grey', 'yellow', 'green'][busList.length % 6]
+    };
+    setBusList([...busList, newBus]);
     setBus('');
-  }
-
-  useEffect(() => {
-    getRandomColor();
-  }, [])
-
-  const getRandomColor = () => {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    console.log(color, 'color');
-    setBusColor(color);
-    // return color;
   };
 
-  const busRoutesList = busRoutesMatrix.map((bus, index) => {
-    console.log(busRoutesMatrix, 'lenghti')
-    const busStops = bus.map(stop => `${stop}`).join(' -> ');
-    return (
-      <Tr key={index}>
-        <Td>Bus {index + 1}</Td>
-        <Td>{busStops}</Td>
-      </Tr>
-    );
-  });
+  const busRoutesList = busRoutesMatrix.length > 0 ? (
+    busRoutesMatrix.map((bus, index) => {
+      const busStops = bus.map(stop => `${stop}`).join(' -> ');
+      return (
+        <Tr key={index}>
+          <Td>Bus {index + 1}</Td>
+          <Td>{busStops}</Td>
+          <Td><TableBusIcon {...{ visitedStops, index }} /></Td>
+        </Tr>
+      );
+    })
+  ) : (
+    <Tr>
+      <Td colSpan="3" textAlign="center">No bus routes added yet</Td>
+    </Tr>
+  );
+
+  const findBus = (visitedStops, busList, index) => {
+    const currentStop = visitedStops[index];
+    return busList.find(bus => {
+      const nextStop = visitedStops[index + 1];
+      return bus.path.includes(currentStop) && bus.path.includes(nextStop);
+    });
+  }
 
   return (
     <div className="App">
-      <div className='container w-60'>
+      <div className='container'>
         <div className='text-center'>
           <h1 className='my-5 justify'>Bus Routes Algorithm</h1>
         </div>
@@ -134,6 +141,7 @@ function App() {
                 <Tr>
                   <Th>Bus</Th>
                   <Th>Stops</Th>
+                  <Th>Icon</Th>
                 </Tr>
                 <Tbody>
                   {busRoutesList}
@@ -163,7 +171,7 @@ function App() {
           <div className="bus-route mt-5">
             <FaMapMarkerAlt size={52} color="red" className='p-0' />
             {visitedStops.map((stop, index) => (
-              <BusIcon {...{ visitedStops, stop, index }} />
+              <BusIcon {...{ visitedStops, index, bus: findBus(visitedStops, busList, index) }} />
             ))}
             <FaFlagCheckered size={52} color="black" className='p-0' />
           </div>
@@ -176,7 +184,7 @@ function App() {
             ))}
           </div>
         }
-      </div >
+      </div>
       {/* <Box bg='gray.200' p={4} mt={10}>
         This is the footer.
       </Box> */}
