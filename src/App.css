@@ -10,3 +10,47 @@
 .svgja-tabel {
   margin-bottom: 9px;
 }
+
+.bus-route {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bus-route-stop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 0px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.fake-bus-route-stop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 0px;
+}
+
+.bus-route-line {
+  height: 8px;
+  background-color: #000;
+  flex-grow: 1;
+  margin: 0px;
+  animation-name: bus-route-line-animation;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-direction: alternate;
+}

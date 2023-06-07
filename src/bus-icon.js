@@ -7,7 +7,7 @@ function BusIcon({ visitedStops, index, bus }) {
         if (bus && bus.color) {
             setBusColor(bus.color);
         }
-    }, []);
+    }, [bus]);
 
     return (
         <React.Fragment key={index}>
@@ -15,7 +15,7 @@ function BusIcon({ visitedStops, index, bus }) {
             {index !== visitedStops.length - 1 && (
                 <div>
                     <div>
-                        {bus && <div className="text-center">{bus.busName}</div>}
+                        {bus && <div className="text-center me-3">{bus.busName}</div>}
                     </div>
                     <div className="svgja">
                         <div className="ms-3 col-6">

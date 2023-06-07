@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import BusRoute from './bus-route';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Table, Tbody, Tr, Th, Td, TableContainer, Box } from "@chakra-ui/react";
+import { Table, Tbody, Tr, Th, Td, TableContainer } from "@chakra-ui/react";
 import BusIcon from './bus-icon';
 import TableBusIcon from './table-bus-icon';
 import { FaMapMarkerAlt } from 'react-icons/fa';
@@ -10,16 +10,12 @@ import { FaFlagCheckered } from 'react-icons/fa';
 
 function App() {
   const [busCount, setBusCount] = useState(null);
-  const [busRoutes, setBusRoutes] = useState('');
   const [startPoint, setStartPoint] = useState(null);
   const [endPoint, setEndPoint] = useState(null);
-  const [error, setError] = useState(true);
   const [visitedStops, setVisitedStops] = useState([]);
   const [bus, setBus] = useState('');
-  const [addedBuses, setAddedBuses] = useState(0);
   const [busList, setBusList] = useState([]);
   const [busRoutesMatrix, setBusRoutesMatrix] = useState([]);
-  const divRef = useRef(null);
 
   /**
   * @param {number[][]} routes
@@ -84,7 +80,7 @@ function App() {
     const newBus = {
       busName: `Bus ${busList.length + 1}`,
       path: busLine,
-      color: ['red', 'blue', 'violet', 'grey', 'yellow', 'green'][busList.length % 6]
+      color: ['red', 'blue', 'violet', 'grey', 'orange', 'black'][busList.length % 6]
     };
     setBusList([...busList, newBus]);
     setBus('');
@@ -97,7 +93,7 @@ function App() {
         <Tr key={index}>
           <Td>Bus {index + 1}</Td>
           <Td>{busStops}</Td>
-          <Td><TableBusIcon {...{ visitedStops, index }} /></Td>
+          <Td><TableBusIcon {...{ index }} /></Td>
         </Tr>
       );
     })
